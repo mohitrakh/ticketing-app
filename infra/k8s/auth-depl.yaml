@@ -15,6 +15,12 @@ spec:
       containers:
         - name: auth
           image: mohitrakh/auth
+          env:
+            - name: JWT_KEY # can be anything it will used for accessing
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret # generic name that we gave in command
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service
