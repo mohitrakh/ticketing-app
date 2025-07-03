@@ -5,7 +5,7 @@ export class Password {
     const salt = randomBytes(8).toString("hex");
     const buf = (await scryptSync(password, salt, 64)) as Buffer;
 
-    return `${buf.toString()}.${salt}`;
+    return `${buf.toString("hex")}.${salt}`;
   }
 
   static async compare(storedPassword: string, suppliedPassword: string) {

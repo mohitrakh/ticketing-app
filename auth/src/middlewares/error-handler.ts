@@ -9,9 +9,11 @@ export const errorHandler = (
 ): void => {
   if (err instanceof CustomError) {
     res.status(err.statusCode).send({ errors: err.serializeErrors() });
+    return;
   }
 
   res.status(400).send({
     errors: [{ message: "Something went wrong" }],
   });
+  return;
 };
