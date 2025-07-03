@@ -14,7 +14,7 @@ router.get(
       res.status(200).json({ currentUser: payload });
     } catch (error) {
       console.log("Current user error:", error);
-      next(error);
+      res.send({ currentUser: null });
     }
   }
 );
