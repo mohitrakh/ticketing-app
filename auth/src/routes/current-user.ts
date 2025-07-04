@@ -1,21 +1,15 @@
 import express, { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { currentUser } from "../middlewares/current-user";
+import { requireAuth } from "../middlewares/require-auth";
 const router = express.Router();
 
 router.get(
   "/api/users/currentuser",
+  currentUser,
+  requireAuth,
   (req: Request, res: Response, next: NextFunction) => {
-    if (!req.session?.jwt) {
-      res.send({ currentUser: null });
-    }
-
-    try {
-      const payload = jwt.verify(req.session?.jwt, process.env.JWT_KEY!);
-      res.status(200).json({ currentUser: payload });
-    } catch (error) {
-      console.log("Current user error:", error);
-      res.send({ currentUser: null });
-    }
+    res.send({ currentUser: req.currentUser || null });
   }
 );
 
