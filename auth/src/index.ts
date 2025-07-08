@@ -4,6 +4,7 @@ import { app } from "./app";
 const start = async () => {
   try {
     if (!process.env.JWT_KEY) {
+      console.log("ENV ERROR", process.env.JWT_KEY);
       throw new Error("JWT_key is not define");
     }
     await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
