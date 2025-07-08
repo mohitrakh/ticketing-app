@@ -4,6 +4,7 @@ import { app } from "./app";
 const start = async () => {
   try {
     if (!process.env.JWT_KEY) {
+      console.log("ENV ERROR", process.env.JWT_KEY);
       throw new Error("JWT_key is not define");
     }
     if (!process.env.MONGO_URI) {
@@ -16,7 +17,7 @@ const start = async () => {
     console.log("Error while connecting to db");
   }
   app.listen(3000, () => {
-    console.log("Listening on port 3000!!!!!!!!");
+    console.log("Listening on port Tickets 3000");
   });
 };
 
