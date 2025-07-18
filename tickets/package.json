@@ -14,11 +14,6 @@
       "./src/test/setup.ts"
     ]
   },
-  "config": {
-    "mongodbMemoryServer": {
-      "version": "8.0"
-    }
-  },
   "keywords": [
     "auth"
   ],
