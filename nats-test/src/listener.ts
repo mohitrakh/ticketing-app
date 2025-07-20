@@ -10,7 +10,6 @@ stan.on("connect", () => {
 
   const options = stan.subscriptionOptions().setManualAckMode(true);
 
-  // Subscribe to the "ticket:created" subject
   const subscription = stan.subscribe(
     "ticket:created",
     "orders-service-queue-group",
@@ -25,4 +24,13 @@ stan.on("connect", () => {
     );
     msg.ack();
   });
+
+  // ✅ Handle graceful shutdown
+  stan.on("close", () => {
+    console.log("NATS connection closed");
+    process.exit();
+  });
+
+  process.on("SIGINT", () => stan.close()); // Ctrl+C
+  process.on("SIGTERM", () => stan.close()); // Kubernetes / Docker
 });
