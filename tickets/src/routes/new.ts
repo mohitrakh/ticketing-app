@@ -19,7 +19,7 @@ router.post(
   validateRequest,
   async (req: Request, res: Response) => {
     const { title, price } = req.body;
-
+    console.log(req.session, "req.session");
     const ticket = Ticket.build({
       title,
       price,
@@ -32,7 +32,7 @@ router.post(
       title: ticket.title,
       userId: ticket.userId,
     });
-    res.status(201).send(ticket);
+    res.status(201).send({ ticket: "DADSAD" });
   }
 );
 
