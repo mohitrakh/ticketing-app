@@ -32,7 +32,7 @@ router.post(
       title: ticket.title,
       userId: ticket.userId,
     });
-    res.status(201).send({ ticket: "DADSAD" });
+    res.status(201).send(ticket);
   }
 );
 

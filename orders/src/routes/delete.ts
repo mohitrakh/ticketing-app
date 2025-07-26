@@ -1,9 +1,41 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response } from "express";
+import {
+  requireAuth,
+  NotFoundError,
+  NotAuthorizedError,
+} from "@mohitrakhtt/common";
+import { Order, OrderStatus } from "../models/order";
+import { OrderCancelleddPublisher } from "../events/publishers/order-cancelled-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
-router.delete('/api/orders/:orderId', async (req: Request, res: Response) => {
-  res.send({});
-});
+router.delete(
+  "/api/orders/:orderId",
+  requireAuth as any,
+  async (req: Request, res: Response) => {
+    const { orderId } = req.params;
+
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      throw new NotFoundError();
+    }
+    if (order.userId !== req.currentUser!.id) {
+      throw new NotAuthorizedError();
+    }
+    order.status = OrderStatus.Cancelled;
+    await order.save();
+
+    // publishing an event saying this was cancelled!
+    new OrderCancelleddPublisher(natsWrapper.client).publish({
+      id: order.id,
+      ticket: {
+        id: order.ticket.id,
+      },
+    });
+    res.status(204).send(order);
+  }
+);
 
 export { router as deleteOrderRouter };
