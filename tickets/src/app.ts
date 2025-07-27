@@ -17,7 +17,7 @@ app.use(
     secure: process.env.NODE_ENV !== "test",
   })
 );
-app.use(currentUser);
+app.use(currentUser as any);
 
 app.use(createTicketRouter);
 app.use(showTicketRouter);
@@ -28,6 +28,6 @@ app.all("/{*any}", (req, res) => {
   throw new NotFoundError();
 });
 
-app.use(errorHandler);
+app.use(errorHandler as any);
 
 export { app };

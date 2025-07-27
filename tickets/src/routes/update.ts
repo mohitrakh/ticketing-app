@@ -14,14 +14,14 @@ const router = express.Router();
 
 router.put(
   "/api/tickets/:id",
-  requireAuth,
+  requireAuth as any,
   [
     body("title").not().isEmpty().withMessage("Title is required"),
     body("price")
       .isFloat({ gt: 0 })
       .withMessage("Price must be provided and must be greater than 0"),
   ],
-  validateRequest,
+  validateRequest as any,
   async (req: Request, res: Response) => {
     const ticket = await Ticket.findById(req.params.id);
 
@@ -43,6 +43,7 @@ router.put(
       price: ticket.price,
       title: ticket.title,
       userId: ticket.userId,
+      version: ticket.version,
     });
 
     res.send(ticket);

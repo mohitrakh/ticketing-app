@@ -33,7 +33,7 @@ router.delete(
       ticket: {
         id: order.ticket.id,
       },
-    });
+    } as any);
     res.status(204).send(order);
   }
 );
