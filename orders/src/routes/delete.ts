@@ -3,7 +3,7 @@ import {
   requireAuth,
   NotFoundError,
   NotAuthorizedError,
-} from "@mohitrakhtt/common";
+} from "@mohittickets/common";
 import { Order, OrderStatus } from "../models/order";
 import { OrderCancelleddPublisher } from "../events/publishers/order-cancelled-publisher";
 import { natsWrapper } from "../nats-wrapper";
