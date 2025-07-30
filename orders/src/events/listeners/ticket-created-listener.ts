@@ -1,4 +1,4 @@
-import { Listener, Subjects, TicketCreatedEvent } from "@mohitrakhtt/common";
+import { Listener, Subjects, TicketCreatedEvent } from "@mohittickets/common";
 import { Message } from "node-nats-streaming";
 import { queueGroupName } from "./queue-group-name";
 import { Ticket } from "../../models/ticket";

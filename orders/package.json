@@ -20,8 +20,8 @@
   "author": "mohitrakh",
   "license": "ISC",
   "dependencies": {
-    "@mohitrakhtt/common": "^1.0.5",
-    "@mohittickets/common": "^1.0.10",
+    "@mohitrakhtt/common": "^1.0.6",
+    "@mohittickets/common": "^1.0.11",
     "@types/cookie-session": "^2.0.49",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
